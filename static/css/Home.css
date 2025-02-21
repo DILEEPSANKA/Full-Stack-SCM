@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.nav .logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav .logo img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.nav .logo span {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.nav .nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav .nav-links a:hover {
+    color: #FFD700;
+}
+
+/* Background Blur Effect */
+.main-content {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #e9f5db;
+    z-index: 2;
+}
+
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/static/Images/homepage.jpg') no-repeat center center/cover;
+    filter: blur(10px); /* Added blur effect */
+    z-index: -1;
+}
+
+.main-content h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #E5E9EC;
+}
+
+.main-content p {
+    font-size: 30px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    color: #FFF3B0;
+}
+
+/* About Us Section */
+.about-us {
+    background-color: #4e88df;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    box-shadow: inset 0 0 50px rgba(233, 230, 230, 0.5);
+}
+
+.about-us::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/static/Images/about-bg.jpg') no-repeat center center/cover;
+    filter: blur(10px); /* Added blur effect */
+    z-index: -1;
+}
+
+.about-us h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    color: #0c0c0c;
+}
+
+.about-us p {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 20px;
+    position: relative;
+    z-index: 2;
+    color: #dfddd3;
+}
+
+.about-us:hover {
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+}
+
+/* Contact Us Section */
+.contact-us {
+    background-color: #dfe4e7;
+    padding: 80px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.contact-us::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/static/Images/contact-bg.jpg') no-repeat center center/cover;
+    filter: blur(10px); /* Added blur effect */
+    z-index: -1;
+}
+
+.contact-us h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    color: #1d1c1b;
+}
+
+.contact-us p {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-top: 20px;
+    position: relative;
+    z-index: 2;
+    color: #161514;
+}
+
+.contact-us a {
+    color: #e0dfd6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-us a:hover {
+    color: #fff;
+}
+
+.contact-us:hover {
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+}

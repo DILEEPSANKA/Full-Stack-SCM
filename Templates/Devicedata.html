@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Data Stream Page</title>
+    <link rel="stylesheet" href="/static/CSS/Devicedata.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../static/Images/Exafluence.jpg" alt="logo" />
+            <span style="color: white; padding-left: 25px; font-weight: bold;">Exafluence</span>
+        </div>
+        <ul class="sidebar-links">
+            <h4>
+                <span>Main Menu</span>
+                <div class="menu-separator"></div>
+            </h4>
+            <li>
+                <a href="/dashboard">
+                    <span class="icon"><i class="fas fa-tachometer-alt"></i></span> 
+                    <span class="text"> Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/account">
+                    <span class="icon"><i class="fas fa-user"></i></span> 
+                    <span class="text"> My Account</span>
+                </a>
+            </li>
+            <li>
+                <a href="/myshipment">
+                    <span class="icon"><i class="fas fa-box"></i></span> 
+                    <span class="text"> My Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/newshipment">
+                    <span class="icon"><i class="fas fa-plus"></i></span> 
+                    <span class="text"> New Shipment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/devicedata">
+                    <span class="icon"><i class="fas fa-cog"></i></span> 
+                    <span class="text"> Device Data</span>
+                </a>
+            </li>
+            <li>
+                <a href="/users">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <span class="text">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="/login" class="logout" onclick="logout(event)">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span> 
+                    <span class="text"> Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="content">
+        
+        <p class="error" id="error_message" style="color: red; font-weight: bold;"></p>
+
+        <h2>Device Data Stream</h2>
+
+        
+        {% if role == "admin" %}
+        <div class="device-id-container">
+            <label for="device_id" class="device-id-label">DEVICE ID</label>
+            <select id="device_id" class="device-id-dropdown" required>
+                <option value="">Select Device ID</option>
+                <option value="1156053076">1156053076</option>
+                <option value="1156053077">1156053077</option>
+                <option value="1156053078">1156053078</option>
+            </select>
+            <div class="button-container">
+                <button class="nextBtn" id="submit">GET DATA</button>
+                
+                <button class="nextBtn" id="refresh">REFRESH</button>
+            </div>
+        </div>
+        {% endif %}
+        
+       
+        {% if show_table %}
+            
+            <table id="device-data-table">
+                <thead>
+                    <tr>
+                        <th>Device_Id</th>
+                        <th>Battery_Level</th>
+                        <th>First_Sensor_temperature</th>
+                        <th>Route_From</th>
+                        <th>Route_To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for device in device_data %}
+                    <tr>
+                        <td>{{ device.Device_Id or "N/A" }}</td>
+                        <td>{{ device.Battery_Level or "N/A" }}</td>
+                        <td>{{ device.First_Sensor_temperature or "N/A" }}</td>
+                        <td>{{ device.Route_From or "N/A" }}</td>
+                        <td>{{ device.Route_To or "N/A" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You are a normal user and do not have access to this page.</p>
+        {% endif %}
+
+    </div>
+
+    <script src="/static/Javascript/Devicedata.js"></script>
+
+</body>
+</html>

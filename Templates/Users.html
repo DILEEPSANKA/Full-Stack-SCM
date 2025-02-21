@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="../static/CSS/users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body style="background-color: #dfe0e4;">
+    <aside class="sidebar" style="background-color: #40566d;">
+        <div class="sidebar-header">
+            <img src="../static/Images/Exafluence.jpg" alt="logo" />
+            <span style="color: white; padding-left: 25px; font-weight: bold;">Exafluence</span>
+        </div>
+        <ul class="sidebar-links">
+            <h4>
+                <span>Main Menu</span>
+                <div class="menu-separator"></div>
+            </h4>
+            <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="/account"><i class="fas fa-user"></i> My Account</a></li>
+            <li><a href="/myshipment"><i class="fas fa-box"></i> My Shipment</a></li>
+            <li><a href="/newshipment"><i class="fas fa-plus"></i> New Shipment</a></li>
+            <li><a href="/devicedata"><i class="fas fa-cog"></i> Device Data</a></li>
+            <li><a href="/users"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="/login" class="logout" onclick="logout(event)"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </aside>
+
+    <div class="content">
+        <h2>User Details</h2>
+        <div id="message" class="message"></div>
+        {% if user_details %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_details %}
+                <tr>
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <button class="edit-btn" onclick="openModal('{{ user.user }}', '{{ user.email }}', '{{ user.role }}')">Edit</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You are a normal user and do not have access to this page.</p>
+        {% endif %}
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>Edit User Details</h3>
+            <form id="editForm" onsubmit="updateUser(event)">
+                <input type="hidden" id="user" name="user" value="">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required readonly><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required readonly><br>
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select><br>
+                <button type="submit">Update Details</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/Javascript/users.js"></script>
+</body>
+</html>
