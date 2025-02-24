@@ -1,7 +1,7 @@
 function logout(event) {
     event.preventDefault();  
   
-    // localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token");
   
    
     fetch("/logout", {

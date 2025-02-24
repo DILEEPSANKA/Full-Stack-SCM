@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         responseMessage.style.display = "none";
 
-        // const token = localStorage.getItem("access_token");
+         const token = localStorage.getItem("access_token");
         
         
         fetch("/newshipment_user", {
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function logout(event) {
     event.preventDefault();  
-    // localStorage.removeItem("access_token");
+     localStorage.removeItem("access_token");
 
     
     fetch("/logout", {

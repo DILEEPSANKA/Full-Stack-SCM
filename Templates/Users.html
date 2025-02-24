@@ -43,12 +43,13 @@
             </thead>
             <tbody>
                 {% for user in user_details %}
-                <tr>
+                <tr id="userRow-{{ user.user }}">
                     <td>{{ user.user }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
                         <button class="edit-btn" onclick="openModal('{{ user.user }}', '{{ user.email }}', '{{ user.role }}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteUser('{{ user.user }}')">Delete</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -59,6 +60,7 @@
         {% endif %}
     </div>
 
+    <!-- Edit User Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -80,5 +82,28 @@
     </div>
 
     <script src="/static/Javascript/users.js"></script>
+    <script>
+        function deleteUser(username) {
+            if (confirm(`Are you sure you want to delete ${username}?`)) {
+                fetch('/delete_user', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user: username })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.detail === "User deleted successfully!") {
+                        document.getElementById(`userRow-${username}`).remove();
+                        alert("User deleted successfully!");
+                    } else {
+                        alert(data.detail);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        }
+    </script>
 </body>
 </html>
