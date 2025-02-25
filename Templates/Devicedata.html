@@ -68,12 +68,16 @@
         
         <p class="error" id="error_message" style="color: red; font-weight: bold;"></p>
 
-        <h2>Device Data Stream</h2>
-
+        <h2>Device Data Stream</h2> 
+         
+        <p style="color: #000000; font-size: 20px; text-align: center;">
+            Please Select a Device ID to see the Data Stream.
+        </p>
+        
         
         {% if role == "admin" %}
         <div class="device-id-container">
-            <label for="device_id" class="device-id-label">DEVICE ID</label>
+            <label for="device_id" class="device-id-label">Device ID:</label>
             <select id="device_id" class="device-id-dropdown" required>
                 <option value="">Select Device ID</option>
                 <option value="1156053076">1156053076</option>
@@ -81,9 +85,7 @@
                 <option value="1156053078">1156053078</option>
             </select>
             <div class="button-container">
-                <button class="nextBtn" id="submit">GET DATA</button>
-                
-                <button class="nextBtn" id="refresh">REFRESH</button>
+                <button class="nextBtn" id="submit">Get Device Data</button>
             </div>
         </div>
         {% endif %}

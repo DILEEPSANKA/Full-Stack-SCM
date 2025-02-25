@@ -136,9 +136,6 @@ body {
     transition: margin-left 0.4s; 
 }
 
-
-
-
 .sidebar:hover + .content {
     margin-left: 260px; 
 }
