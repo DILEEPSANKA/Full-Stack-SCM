@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     function getAuthHeaders() {
-        // const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("access_token");
         return {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -99,11 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function logout(event) {
     event.preventDefault();  
-  
-    
-    // localStorage.removeItem("access_token");
-  
-   
+    localStorage.removeItem("access_token");
     fetch("/logout", {
         method: "POST",  
         credentials: "same-origin", 

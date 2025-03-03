@@ -50,45 +50,9 @@ async function updateUser(event) {
     }
 }
 
-// async function deleteUser(user) {
-//     if (!confirm(` Are you sure you want to delete user "${username}"?`)) {
-//         return;
-//     }
-
-//     try {
-//         const response = await fetch(`/delete_user/${username}`, {
-//             method: "DELETE",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             }
-//         });
-
-//         const data = await response.json();
-//         const messageDiv = document.getElementById('message');
-
-//         if (response.ok) {
-//             messageDiv.textContent = "User deleted successfully!";
-//             messageDiv.className = "message success";
-//             messageDiv.style.display = "block";
-//             document.getElementById(`userRow-${username}`).remove(); // Remove row from table
-//         } else {
-//             messageDiv.textContent = "Error deleting user: " + data.detail;
-//             messageDiv.className = "message error";
-//             messageDiv.style.display = "block";
-//         }
-//     } catch (error) {
-//         console.error("Error:", error);
-//         const messageDiv = document.getElementById('message');
-//         messageDiv.textContent = "An error occurred while deleting the user.";
-//         messageDiv.className = "message error";
-//         messageDiv.style.display = "block";
-//     }
-// }
-
-
 function logout(event) {
     event.preventDefault();  
-    // localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token");
 
     fetch("/logout", {
         method: "POST", 

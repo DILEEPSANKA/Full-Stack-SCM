@@ -3,7 +3,6 @@ function logout(event) {
   
     localStorage.removeItem("access_token");
   
-   
     fetch("/logout", {
         method: "POST", 
         credentials: "same-origin", 
