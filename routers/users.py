@@ -28,7 +28,6 @@ def admin_page(request: Request, current_user: dict = Depends(fetch_user_from_co
     except Exception as e:
         return html.TemplateResponse("Users.html", {"request": request, "user_details": [], "error_message": str(e)})
 
-
 # 🔹 Update User Role
 @app.put("/update_user")
 async def update_user(
@@ -61,16 +60,25 @@ async def update_user(
     except Exception as e:
         return JSONResponse(status_code=500, content={"detail": str(e)})
 
-# 🔹 Logout Functionality
-COOKIE_NAME = "access_token"
 
-@app.post("/logout")
-async def logout(request: Request):
+# 🔹 Delete User
+@app.delete("/delete_user")
+async def delete_user(request: Request, data: dict = Body(...), current_user: dict = Depends(fetch_user_from_cookie)):
+    if current_user is None:
+        return JSONResponse(status_code=400, content={"detail": "User not logged in."})
+
+    if current_user.get("role") != "admin":
+        return JSONResponse(status_code=403, content={"detail": "Unauthorized."})
+
     try:
-        response = JSONResponse(content={"message": "Logged out"})
-        response.delete_cookie(COOKIE_NAME, path="/", domain=None)
-        return response
-    except KeyError as exc:
-        raise HTTPException(status_code=400, detail="Cookie name not found.") from exc
-    except Exception as exception:
-        raise HTTPException(status_code=500, detail=str(exception))
+        user = data.get("user")
+
+        result = User_details.delete_one({"user": user})
+
+        if result.deleted_count > 0:
+            return JSONResponse(status_code=200, content={"detail": "User deleted successfully!"})
+        else:
+            return JSONResponse(status_code=404, content={"detail": "User not found."})
+
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"detail": str(e)})

@@ -44,9 +44,7 @@ def sign(request: Request, username: str = Form(...), email: str = Form(...), ro
 
         if len(password) < 8:
             return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Password should be at least 8 characters long", "username": username, "email": email, "role": role})
-        
-
-        
+             
         pw = pwd_cxt.hash(password)
         signupData = Signup(user=username, email=email, role=role, password=pw)
         User_details.insert_one(dict(signupData)) 

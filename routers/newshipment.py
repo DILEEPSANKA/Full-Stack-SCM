@@ -10,7 +10,6 @@ app = APIRouter()
 html = Jinja2Templates(directory="./Templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 
-
 @app.get("/newshipment")
 def newship(request: Request):
     try:

@@ -32,8 +32,7 @@ async def login(request: Request, form_data: OAuth2PasswordRequestForm = Depends
         if not pwd_cxt.verify(form_data.password, user_data["password"]):
             
             return JSONResponse(content={"detail": "Incorrect password."}, status_code=401)
-        
-        
+             
         token = create_access_token(data={
             "username": user_data["user"],
             "email": user_data["email"],

@@ -9,8 +9,6 @@ app = APIRouter()
 html = Jinja2Templates(directory="Templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-
 @app.get("/myshipment")
 def my_shipments(request: Request, current_user: dict = Depends(fetch_user_from_cookie)):
     

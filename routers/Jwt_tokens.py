@@ -6,17 +6,13 @@ from Models.model import Signup
 from config.config import SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, User_details
 from typing import Dict
 
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
-
 
 def create_access_token(data: Dict, expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta if expires_delta else timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-
 
 def decode_token(token: str) -> Signup:
     credentials_exception = HTTPException(

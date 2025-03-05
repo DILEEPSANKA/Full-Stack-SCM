@@ -3,8 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse, JSONResponse
 from routers.dashboard import fetch_user_from_cookie
-
-
+ 
 app = APIRouter()
 html = Jinja2Templates(directory="Templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -14,8 +13,7 @@ async def account(request: Request, user: dict = Depends(fetch_user_from_cookie)
     try:
         if not user:
             return RedirectResponse(url="/login?alert=true")
-
-       
+     
         username = user.get("user") 
         email = user.get("email")
 

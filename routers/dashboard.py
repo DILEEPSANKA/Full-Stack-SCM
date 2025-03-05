@@ -31,8 +31,6 @@ def dashboard(request: Request, current_user: dict = Depends(fetch_user_from_coo
         
         return JSONResponse(status_code=500,content={"detail": f"An unexpected error occurred: {str(e)}"})
 
-
-
 COOKIE_NAME = "access_token"  
 @app.post("/logout")
 async def logout(request: Request):
