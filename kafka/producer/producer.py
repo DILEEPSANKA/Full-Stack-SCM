@@ -9,7 +9,6 @@ kafka_brokers = os.getenv("BOOTSTRAP_SERVERS", "localhost:9092")
 server_address = os.getenv("HOST", "localhost")
 server_port = int(os.getenv("PORT", 12345))
 
-# Fallback for Linux Docker (if running inside Docker)
 if server_address == "host.docker.internal" and os.name != "nt":
     server_address = "172.17.0.1"
 
@@ -39,7 +38,7 @@ while retry_count < MAX_RETRIES:
     except socket.error as e:
         print(f"Connection attempt {retry_count + 1}/{MAX_RETRIES} failed: {e}")
         retry_count += 1
-        time.sleep(5)  # Wait before retrying
+        time.sleep(5)  
 else:
     print("Unable to connect to server. Exiting.")
     exit(1)

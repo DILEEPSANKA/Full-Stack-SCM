@@ -1,0 +1,49 @@
+version: '3.13.1'
+
+services:
+  
+  scm:
+    image: dileepsanka/main:latest
+    ports:
+      - "8000:8000"
+  
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_HEAP_OPTS=-Xmx1G  
+    depends_on:
+      - zookeeper
+
+  servers:
+    image: dileepsanka/server:latest
+    ports:
+      - "12345:12345"
+    depends_on:
+      - kafka
+  
+  producer:
+    image: dileepsanka/producer:latest
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - servers
+
+  consumer:
+    image: dileepsanka/consumer:latest
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - producer
