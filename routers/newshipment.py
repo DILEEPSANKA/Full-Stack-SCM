@@ -1,31 +1,47 @@
 from fastapi import APIRouter, Request, Depends, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from config.config import Shipments
-from routers.Jwt_tokens import oauth2_scheme, decode_token
+from routers.Authentication import oauth2_scheme, decode_token
 from Models.model import ShipmentData
+from routers.dashboard import fetch_user_from_cookie
 
 app = APIRouter()
 html = Jinja2Templates(directory="./Templates")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 
 @app.get("/newshipment")
-def newship(request: Request):
+def newship(request: Request, current_user: dict = Depends(fetch_user_from_cookie)):
+    if current_user is None:
+        return RedirectResponse(url="/login?alert=true")
+
     try:
-        return html.TemplateResponse("Newshipment.html", {"request": request})
+        role = current_user.get("role", "user")
+        username = current_user.get("username", "User")
+
+        return html.TemplateResponse("Newshipment.html", {
+            "request": request,
+            "role": role,
+            "username": username
+        })
     except Exception as e:
         return JSONResponse(content={"detail": f"Error loading template: {str(e)}"}, status_code=500)
-
 
 @app.post("/newshipment_user")
 def newshipment(
     request: Request,
     shipment_details: ShipmentData,
     token: str = Depends(oauth2_scheme),
+    current_user: dict = Depends(fetch_user_from_cookie)
 ):
+    if current_user is None:
+        return JSONResponse(status_code=400, content={"detail": "User not logged in."})
+
     try:
-        
+        role = current_user.get("role", "user")
+        username = current_user.get("username", "User")
+
         if any(
             value == ""
             for value in [
@@ -45,14 +61,12 @@ def newshipment(
         ):
             raise HTTPException(status_code=400, detail="All fields must be filled")
 
-        
         existing_data = Shipments.find_one(
             {"shipment_number": shipment_details.shipment_number}, {"_id": 0}
         )
         if existing_data:
             raise HTTPException(status_code=400, detail="Shipment number already exists")
 
-        
         decoded_token = decode_token(token)
 
         shipment_data = {
@@ -72,11 +86,11 @@ def newshipment(
             "shipment_description": shipment_details.shipment_description,
         }
 
-        
         Shipments.insert_one(shipment_data)
 
         return JSONResponse(
-            content={"message": "Shipment Created Successfully"}, status_code=200
+            content={"message": "Shipment Created Successfully"},
+            status_code=200
         )
 
     except HTTPException as http_error:
@@ -86,7 +100,6 @@ def newshipment(
         )
     except Exception as e:
         return JSONResponse(content={"detail": str(e)}, status_code=500)
-
 
 COOKIE_NAME = "access_token"
 @app.post("/logout")
@@ -98,4 +111,4 @@ async def logout(request: Request):
     except KeyError as exc:
         raise HTTPException(status_code=400, detail="Cookie name not found.") from exc
     except Exception as exception:
-        raise HTTPException(status_code=500, detail=str(exception)) from exception
+        raise HTTPException(status_code=500, detail=str(exception)) from exception  

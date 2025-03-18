@@ -69,7 +69,7 @@ body {
 }
 
 .form-container button:hover {
-    background-color: #45a049;
+    background-color: #4c81ff;
 }
 
 .form-container .login-link {
@@ -78,7 +78,7 @@ body {
 }
 
 .form-container .login-link a {
-    color: #45a049;
+    color: #4c81ff;
     text-decoration: none;
     font-size: 16px;
 }
@@ -93,11 +93,11 @@ body {
 }
 
 .form-container a {
-    color: #4CAF50; 
+    color: #4c81ff; 
     text-decoration: none;
     font-weight: bold;
 }
 
 .form-container a:hover {
     text-decoration: underline;
-}
+} 
