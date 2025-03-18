@@ -22,7 +22,7 @@ def sign(request: Request):
 def sign(request: Request, username: str = Form(...), email: str = Form(...), role: str = Form("user"),
          password: str = Form(...), confirm: str = Form(...)):
     try:
-        
+
         existing_user = User_details.find_one({"user": username})  
         existing_email = User_details.find_one({"email": email})
 
@@ -33,12 +33,18 @@ def sign(request: Request, username: str = Form(...), email: str = Form(...), ro
         if existing_email:
             return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Email already used", "username": username, "email": email, "role": role})
 
+        if len(username.strip()) < 3 or len(username.strip()) > 20:
+            return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Username must be between 3 and 20 characters.", "username": username, "email": email, "role": role})
+
         if password != confirm:
             return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Passwords do not match", "username": username, "email": email, "role": role})
 
         if not any(char.isdigit() for char in password):
             return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Password should contain at least one digit", "username": username, "email": email, "role": role})
-
+        
+        if not re.search(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email):
+            return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Invalid email format", "username": username, "email": email, "role": role})
+       
         if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
             return html.TemplateResponse("sign_up.html", {"request": request, "error_message": "Password should contain at least one special character", "username": username, "email": email, "role": role})
 
@@ -49,7 +55,6 @@ def sign(request: Request, username: str = Form(...), email: str = Form(...), ro
         signupData = Signup(user=username, email=email, role=role, password=pw)
         User_details.insert_one(dict(signupData)) 
 
-        
         return RedirectResponse(url='/login', status_code=303)
 
     except Exception as e:
