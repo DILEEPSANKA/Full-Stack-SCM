@@ -84,18 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.error("Submit button not found.");
     }
-
-    
-    const refreshButton = document.getElementById("refresh");
-    if (refreshButton) {
-        refreshButton.addEventListener("click", function () {
-            window.location.reload();  
-        });
-    } else {
-        console.error("Refresh button not found.");
-    }
 });
 
+function redirectToDashboard() {
+    window.location.href = '/dashboard'; 
+}
 
 function logout(event) {
     event.preventDefault();  
