@@ -1,4 +1,5 @@
 function openModal(username, email, role) {
+    // Set the values of the form inputs
     document.getElementById('user').value = username;  
     document.getElementById('username').value = username;  
     document.getElementById('email').value = email; 
@@ -34,7 +35,7 @@ async function updateUser(event) {
             messageDiv.className = 'message success'; 
             messageDiv.style.display = 'block';  
             closeModal();
-            location.reload();  
+            location.reload();  // Refresh page after update
         } else {
             messageDiv.textContent = "Error updating user: " + data.detail; 
             messageDiv.className = 'message error';  
@@ -47,9 +48,6 @@ async function updateUser(event) {
         messageDiv.className = 'message error';  
         messageDiv.style.display = 'block';  
     }
-}
-function redirectToDashboard() {
-    window.location.href = '/dashboard'; 
 }
 
 function logout(event) {

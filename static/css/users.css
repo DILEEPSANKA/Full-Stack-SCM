@@ -13,6 +13,7 @@ body {
     display: flex;
 }
 
+/* Sidebar Styles */
 .sidebar {
     position: fixed;
     top: 0;
@@ -128,6 +129,7 @@ body {
     border-radius: 4px;
 }
 
+/* Content Styling */
 .content {
     margin-left: 100px;
     padding: 20px;
@@ -145,6 +147,7 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -161,18 +164,20 @@ th, td {
 }
 
 th {
-    background-color: #b2c3e7;
+    background-color: #f2f2f2;
 }
 
 tr:hover {
     background-color: #dfe6e9;
 }
 
+/* Buttons Styling */
 .action-buttons {
     display: flex;
     gap: 10px;
 }
 
+/* Edit Button */
 .edit-btn {
     padding: 8px 12px;
     background-color: #4f52ba;
@@ -187,6 +192,7 @@ tr:hover {
     background-color: #3c41a1;
 }
 
+/* Delete Button */
 .delete-btn {
     padding: 8px 12px;
     background-color: #dc3545;
@@ -201,6 +207,7 @@ tr:hover {
     background-color: #b52a37;
 }
 
+/* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -231,6 +238,7 @@ tr:hover {
     color: #333;
 }
 
+/* Form Styling */
 form {
     display: flex;
     flex-direction: column;
@@ -260,6 +268,21 @@ button {
 button:hover {
     background-color: #3c41a1;
 }
+/* .delete-btn {
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #a71d2a;
+} */
+
+
+/* Message Display */
 .message {
     padding: 15px;
     margin-bottom: 20px;
@@ -276,39 +299,4 @@ button:hover {
 .message.error {
     background-color: #dc3545;
     color: white;
-}
-
-.access-denied-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #f0f0f0; 
-    color: #333; 
-    border: 1px solid #ffcccc; 
-    border-radius: 8px;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: margin-left 0.4s ease;
-}
-
-.sidebar:hover ~ .content .access-denied-card {
-    margin-left: 160px; 
-}
-
-.close-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #1b58db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.close-btn:hover {
-    background-color: #3741b4;
 }

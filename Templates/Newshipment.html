@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Shipment Page</title>
-    <link rel="stylesheet" href="../static/css/Newshipment.css">
+    <link rel="stylesheet" href="../static/CSS/Newshipment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -53,7 +53,6 @@
                     <span class="text"> New Shipment</span>
                 </a>
             </li>
-            {% if role == "admin" %}
             <li>
                 <a href="/devicedata" id="device-data-link">
                     <span class="icon"><i class="fas fa-cog"></i></span>
@@ -66,7 +65,6 @@
                     <span class="text">Users</span>
                 </a>
             </li>
-            {% endif %}
             <li>
                 <a href="/login" class="logout" onclick="logout(event)">
                     <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
@@ -101,12 +99,12 @@
                 <label class="form-label" for="rdetails">Route Details</label>
                 <select id="rdetails" name="route_details" class="input-field" required>
                     <option value="" disabled selected hidden>Select Route</option>
-                    <option>Hyderabad-Delhi</option>
-                    <option>Mumbai-Punjab</option>
-                    <option>Tirupati-Chennai</option>
-                    <option>Delhi-Mumbai</option>
-                    <option>Bangalore-Chennai</option>
-                    <option>Chennai-Tirupati</option>
+                    <option>Hyderabad</option>
+                    <option>Mumbai</option>
+                    <option>Vishakapatnam</option>
+                    <option>Delhi</option>
+                    <option>Bangalore</option>
+                    <option>Chennai</option>
                 </select>
             </div>
 
@@ -126,9 +124,12 @@
                 <label class="form-label" for="device">Device ID</label>
                 <select id="device" name="device_id" class="input-field" required>
                     <option value="" disabled selected hidden>Select Device ID</option>
+                    <option>1819124650</option>
                     <option>1819124651</option>
                     <option>1819124652</option>
                     <option>1819124653</option>
+                    <option>1819124654</option>
+                    <option>1819124655</option>
                 </select>
             </div>
 
@@ -169,7 +170,6 @@
                 <label class="form-label" for="sdesc">Shipment Description</label>
                 <textarea rows="1" id="sdesc" name="shipment_description" class="input-field form-textarea" required></textarea>
             </div>
-            
             <div class="button-container">
                 <button type="submit" class="button-80" id="subbtn">Submit Shipment</button>
                 <button type="reset" class="button-80" id="canbtn">Clear Details</button>

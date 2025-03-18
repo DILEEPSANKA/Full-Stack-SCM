@@ -16,13 +16,10 @@ async def account(request: Request, user: dict = Depends(fetch_user_from_cookie)
      
         username = user.get("user") 
         email = user.get("email")
-        role = user.get("role") 
 
         return html.TemplateResponse(
-            "Account.html", 
-            {"request": request, "username": username, "email": email, "role": role} 
+            "Account.html", {"request": request, "username": username, "email": email}
         )
-    
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:

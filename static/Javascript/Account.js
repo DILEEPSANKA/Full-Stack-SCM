@@ -1,5 +1,6 @@
 function logout(event) {
     event.preventDefault();  
+    // document.cookie = "access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     localStorage.removeItem("access_token");
     fetch("/logout", {
         method: "POST", 

@@ -1,10 +1,12 @@
 function validateForm(event) {
     event.preventDefault();
     
+    
     clearErrors();
   
     let valid = true;
   
+    
     const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
@@ -14,7 +16,7 @@ function validateForm(event) {
     if (username === '') {
         document.getElementById('usernameError').textContent = 'Username is required.';
         valid = false;
-    } else if (username.trim().length < 3 || username.trim().length > 20) {
+    } else if (username.length < 3 || username.length > 20) {
         document.getElementById('usernameError').textContent = 'Username must be between 3 and 20 characters.';
         valid = false;
     }
@@ -25,20 +27,23 @@ function validateForm(event) {
     }
 
     if (password === '') {
-          valid = false;
+        document.getElementById('passwordError').textContent = 'Password is required.';
+        valid = false;
     } else if (password.length < 8) {  
         document.getElementById('passwordError').textContent = 'Password should be at least 8 characters long.';
         valid = false;
     }
 
+   
     if (confirmPassword === '') {
         document.getElementById('confirmPasswordError').textContent = 'Please confirm your password.';
         valid = false;
     } else if (confirmPassword !== password) {
         document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
         valid = false;
-    }document.getElementById('passwordError').textContent = 'Password is required.';
-      
+    }
+
+    
     if (!terms) {
         document.getElementById('termsError').textContent = 'You must agree to the Terms & Conditions.';
         valid = false;
@@ -50,10 +55,11 @@ function validateForm(event) {
     }
 }
 
+
 function clearErrors() {
     document.getElementById('usernameError').textContent = '';
     document.getElementById('emailError').textContent = '';
     document.getElementById('passwordError').textContent = '';
     document.getElementById('confirmPasswordError').textContent = '';
     document.getElementById('termsError').textContent = ''; 
-} 
+}

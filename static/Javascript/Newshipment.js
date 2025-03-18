@@ -102,10 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
 function logout(event) {
     event.preventDefault();  
      localStorage.removeItem("access_token");
-       
+
+    
     fetch("/logout", {
         method: "POST", 
         credentials: "same-origin",  

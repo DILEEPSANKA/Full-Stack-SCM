@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Load environment variables
 kafka_brokers = os.getenv("BOOTSTRAP_SERVERS", "localhost:9092")
 server_address = os.getenv("HOST", "localhost")
 server_port = int(os.getenv("PORT", 12345))
@@ -11,6 +12,7 @@ server_port = int(os.getenv("PORT", 12345))
 if server_address == "host.docker.internal" and os.name != "nt":
     server_address = "172.17.0.1"
 
+# Initialize Kafka Producer
 kafka_producer = Producer({"bootstrap.servers": kafka_brokers})
 
 def publish_message(topic, data):
@@ -21,6 +23,7 @@ def publish_message(topic, data):
     except Exception as e:
         print(f"Error publishing message to Kafka: {e}")
 
+# Retry mechanism for socket connection
 MAX_RETRIES = 5
 retry_count = 0
 client_socket = None
@@ -40,6 +43,7 @@ else:
     print("Unable to connect to server. Exiting.")
     exit(1)
 
+# Listening for messages
 try:
     while True:
         try:

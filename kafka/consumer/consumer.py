@@ -4,8 +4,10 @@ import json, os, time
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
 
+# Load environment variables
 load_dotenv()
 
+# MongoDB Configuration
 mongo_uri = os.getenv("MONGODB_URI")
 db_name = os.getenv("MONGODB_DATABASE")
 
@@ -21,6 +23,7 @@ except Exception as mongo_error:
     print(f"Error connecting to MongoDB: {mongo_error}")
     exit(1)
 
+# Kafka Configuration
 kafka_broker_list = os.getenv("BOOTSTRAP_SERVERS", "kafka:9092")
 
 kafka_consumer_config = {
@@ -29,6 +32,7 @@ kafka_consumer_config = {
     'auto.offset.reset': 'earliest'
 }
 
+# Retry Kafka connection
 MAX_RETRIES = 5
 retry_count = 0
 while retry_count < MAX_RETRIES:
@@ -45,6 +49,7 @@ else:
     print("Unable to connect to Kafka. Exiting.")
     exit(1)
 
+# Listening for messages
 try:
     while True:
         event_message = kafka_consumer.poll(1.0)
