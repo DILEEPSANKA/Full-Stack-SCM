@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Device Data Stream Page</title>
-    <link rel="stylesheet" href="/static/CSS/Devicedata.css">
+    <link rel="stylesheet" href="/static/css/Devicedata.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -43,6 +43,7 @@
                     <span class="text"> New Shipment</span>
                 </a>
             </li>
+            {% if role == "admin" %}
             <li>
                 <a href="/devicedata">
                     <span class="icon"><i class="fas fa-cog"></i></span> 
@@ -55,6 +56,7 @@
                     <span class="text">Users</span>
                 </a>
             </li>
+            {% endif %}
             <li>
                 <a href="/login" class="logout" onclick="logout(event)">
                     <span class="icon"><i class="fas fa-sign-out-alt"></i></span> 
@@ -70,12 +72,10 @@
 
         <h2>Device Data Stream</h2> 
          
+        {% if role == "admin" %}
         <p style="color: #000000; font-size: 20px; text-align: center;">
             Please Select a Device ID to see the Data Stream.
         </p>
-        
-        
-        {% if role == "admin" %}
         <div class="device-id-container">
             <label for="device_id" class="device-id-label">Device ID:</label>
             <select id="device_id" class="device-id-dropdown" required>
@@ -90,9 +90,8 @@
         </div>
         {% endif %}
         
-       
         {% if show_table %}
-            
+            <div class="table-container">
             <table id="device-data-table">
                 <thead>
                     <tr>
@@ -115,13 +114,16 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
         {% else %}
-            <p>You are a normal user and do not have access to this page.</p>
+            <div class="access-denied-card">
+                <p>Administrative access is required to view this page.</p>
+                <button class="close-btn" onclick="redirectToDashboard()">Close</button>
+            </div>
         {% endif %}
-
     </div>
 
     <script src="/static/Javascript/Devicedata.js"></script>
 
 </body>
-</html>
+</html>  
