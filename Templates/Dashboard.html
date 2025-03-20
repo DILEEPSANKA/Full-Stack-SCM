@@ -40,7 +40,11 @@
     <div class="content">
         <div class="button-container">
             <button class="action-button" onclick="navigateTo('/newshipment')">Create New Shipment</button>
+            {% if role == "admin" %}
             <button class="action-button" onclick="navigateTo('/devicedata')">Device Data Stream</button>
+            {% else %}
+            <button class="action-button" onclick="navigateTo('/myshipment')">My Shipments</button>
+            {% endif %}
         </div>
     </div>
 
