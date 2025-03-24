@@ -256,7 +256,7 @@ body::before {
 }
 
 .action-button:hover {
-    background: linear-gradient(135deg, #b45218, #e3723a);
+    background: linear-gradient(135deg, #4492db, #6d97b3);
     transform: scale(1.05);
 }
 
